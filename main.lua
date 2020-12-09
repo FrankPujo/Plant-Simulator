@@ -1,19 +1,33 @@
 local widget = require ( "widget" )
+local stuff = require ( "stuff" )
 
+-- calendar
+local day = 1
+local calOpt =
+{
+    text = "Day".. tostring( day ),
+    x = 540,
+    y = 70,
+    width = 100,
+    align = "center",
+    fontSize = 46
+}
+local calendar = display.newText( calOpt )
 
-local wholeBar = display.newRect( 320, 890, 636, 60 )
+-- bottom bars
+local wholeBar = display.newRect( 320, 890, 650, 60 )
 wholeBar:setStrokeColor( 1, 1, 1 )
 wholeBar.strokeWidth = 2
 wholeBar:setFillColor( 0, 0, 0 )
 
-local oxyBar = display.newRect( 3, 890, 2, 58 )
-oxyBar:setFillColor( 0, 0.2, 0.9 )
+local oxyBar = display.newRect( 2, 890, 2, 58 )
+oxyBar:setFillColor( 0.1, 0.3, 1 )
 
---parameters
-local oxyPar = 1
+-- parameters
+local oxyPar = 0
 local dioxPar = 10
 
---oxygen
+-- oxygen
 local oxyOpt =
 {
     text = "Oxygen: ".. tostring( oxyPar ),
@@ -25,7 +39,7 @@ local oxyOpt =
 }
 local oxygen = display.newText( oxyOpt )
 
---dioxide
+-- dioxide
 local dioxOpt =
 {   
     text = "Dioxide: ".. tostring( dioxPar ),
@@ -37,7 +51,7 @@ local dioxOpt =
 }
 local dioxide = display.newText( dioxOpt )
 
---title
+-- title
 local titleOpt = 
 {
     text = "Your Plant Parameters",
@@ -53,14 +67,17 @@ title:setFillColor( 0.2, 1, 0.4 )
 local function timeOn( listener )
     oxyPar = oxyPar + 1
     dioxPar = dioxPar - 1
+    --
     oxygen.text = "Oxygen: ".. tostring( oxyPar )
     dioxide.text = "Dioxide: ".. tostring( dioxPar )
     --
-    oxyBar.x = oxyBar.x + 1
-    oxyBar.width = oxyBar.width + 2 
+    oxyBar.width = oxyBar.width + 1
+    --
+    day = day + 1
+    calendar.text = "Day".. tostring( day )
 end
 
---time button
+-- time button
 local timeOpt =
 {
     x = 320,
@@ -77,10 +94,41 @@ local timeOpt =
 }
 local timeBtn = widget.newButton( timeOpt )
 
-local paint = 
+------------------------------------------------------------------------------------------
+--[[
+local soilPar = 1.2
+
+local soilOpt =
 {
-    type = "gradient",
-    color1 = { 0, 0.1, 0.8 },
-    color2 = { 0, 0, 0.6 },
-    direction = "right"
+    text = "Soil",
+    x = 165,
+    y = 135,
+    width = 280,
+    align = "left",
+    fontSize = 40,
+    shape = "rectangle"
 }
+
+local soil = display.newText( soilOpt )
+
+local function changeSoil( listener )
+    soilPar = soilPar + 0.1
+    -- update the text
+    if soilPar = 1.2 then
+        soil.text = "Soil level: Medium"
+    elseif soilPar = 1.1 then
+        soil.text = "Soil level: Low"
+    elseif soilPar = 1.3 then
+        soil.text = "Soil level: High"
+    elseif soilPar = 1.4 then
+        soilPar = 1.1
+    end
+end
+
+local soilBtnOpt =
+{
+    
+}
+
+local soilBtn = widget.newButton( soilBtnOpt )
+]]
