@@ -1,2 +1,2 @@
 # Plant-Simulator
-Android game simulating the grown of a plant.
+Android game simulating the growth of a plant.
