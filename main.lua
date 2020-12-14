@@ -94,19 +94,18 @@ local timeOpt =
 }
 local timeBtn = widget.newButton( timeOpt )
 
-------------------------------------------------------------------------------------------
---[[
-local soilPar = 1.2
+-- soil
+
+local soilPar = 1.0
 
 local soilOpt =
 {
-    text = "Soil",
-    x = 165,
+    text = "Soil level",
+    x = 215,
     y = 135,
-    width = 280,
+    width = 380,
     align = "left",
-    fontSize = 40,
-    shape = "rectangle"
+    fontSize = 40
 }
 
 local soil = display.newText( soilOpt )
@@ -114,21 +113,27 @@ local soil = display.newText( soilOpt )
 local function changeSoil( listener )
     soilPar = soilPar + 0.1
     -- update the text
-    if soilPar = 1.2 then
+    if { soilPar = 1.2 } then
         soil.text = "Soil level: Medium"
-    elseif soilPar = 1.1 then
+    elseif  { soilPar = 1.1 } then
         soil.text = "Soil level: Low"
-    elseif soilPar = 1.3 then
+    elseif { soilPar = 1.3 } then
         soil.text = "Soil level: High"
-    elseif soilPar = 1.4 then
+    elseif { soilPar = 1.4 } then
         soilPar = 1.1
     end
 end
 
 local soilBtnOpt =
 {
-    
+    x = 165,
+    y = 800,
+    height = 120,
+    width = 230,
+    label = "Change Soil",
+    fontSize = 40,
+    shape = "rectangle",
+    onRelease = changeSoil
 }
 
 local soilBtn = widget.newButton( soilBtnOpt )
-]]
