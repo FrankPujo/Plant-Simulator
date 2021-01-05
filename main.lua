@@ -1,7 +1,32 @@
 local widget = require ( "widget" )
 local stuff = require ( "stuff" )
 
--- calendar
+--soil---------------------------------------------------------------------------------------------
+local soilOpt =
+{
+    text = "Soil level: Medium",
+    x = 215,
+    y = 135,
+    width = 380,
+    align = "left",
+    fontSize = 40
+}
+
+local soil = display.newText( soilOpt )
+
+local segmOpt =
+{
+    x = 165,
+    y = 800,
+    segments = { "Low", "Medium", "High" },
+    defaultSegment = 2,
+    segmentWidth = 100,
+    labelSize = 24
+}
+
+local segmSoil = widget.newSegmentedControl( segmOpt )
+
+-- calendar----------------------------------------------------------------------------------------
 local day = 1
 local calOpt =
 {
@@ -14,20 +39,23 @@ local calOpt =
 }
 local calendar = display.newText( calOpt )
 
--- bottom bars
-local wholeBar = display.newRect( 320, 890, 650, 60 )
-wholeBar:setStrokeColor( 1, 1, 1 )
-wholeBar.strokeWidth = 2
-wholeBar:setFillColor( 0, 0, 0 )
+---------------------------------------------------------------------------------------------------
+local oxyBarOpt =
+{
+    x = 320,
+    y = 900,
+    width = 640,
+    isAnimated = true
+}
 
-local oxyBar = display.newRect( 2, 890, 2, 58 )
-oxyBar:setFillColor( 0.1, 0.3, 1 )
+local oxyBar = widget.newProgressView( oxyBarOpt )
+oxyBar:setProgress( 0 )
 
--- parameters
+-- parameters--------------------------------------------------------------------------------------
 local oxyPar = 0
 local dioxPar = 10
 
--- oxygen
+-- oxygen------------------------------------------------------------------------------------------
 local oxyOpt =
 {
     text = "Oxygen: ".. tostring( oxyPar ),
@@ -39,7 +67,7 @@ local oxyOpt =
 }
 local oxygen = display.newText( oxyOpt )
 
--- dioxide
+-- dioxide-----------------------------------------------------------------------------------------
 local dioxOpt =
 {   
     text = "Dioxide: ".. tostring( dioxPar ),
@@ -51,7 +79,7 @@ local dioxOpt =
 }
 local dioxide = display.newText( dioxOpt )
 
--- title
+-- title-------------------------------------------------------------------------------------------
 local titleOpt = 
 {
     text = "Your Plant Parameters",
@@ -64,6 +92,7 @@ local titleOpt =
 local title = display.newText( titleOpt )
 title:setFillColor( 0.2, 1, 0.4 )
 
+---------------------------------------------------------------------------------------------------
 local function timeOn( listener )
     oxyPar = oxyPar + 1
     dioxPar = dioxPar - 1
@@ -71,13 +100,19 @@ local function timeOn( listener )
     oxygen.text = "Oxygen: ".. tostring( oxyPar )
     dioxide.text = "Dioxide: ".. tostring( dioxPar )
     --
-    oxyBar.width = oxyBar.width + 1
-    --
     day = day + 1
     calendar.text = "Day".. tostring( day )
+    --
+    soil.text = "Soil Level: ".. segmSoil.segmentLabel
+    --
+    oxyBar:setProgress( oxyPar/1000)
+    --
 end
 
--- time button
+--
+-- time button-------------------------------------------------------------------------------------
+--
+
 local timeOpt =
 {
     x = 320,
@@ -94,46 +129,4 @@ local timeOpt =
 }
 local timeBtn = widget.newButton( timeOpt )
 
--- soil
-
-local soilPar = 1.0
-
-local soilOpt =
-{
-    text = "Soil level",
-    x = 215,
-    y = 135,
-    width = 380,
-    align = "left",
-    fontSize = 40
-}
-
-local soil = display.newText( soilOpt )
-
-local function changeSoil( listener )
-    soilPar = soilPar + 0.1
-    -- update the text
-    if { soilPar = 1.2 } then
-        soil.text = "Soil level: Medium"
-    elseif  { soilPar = 1.1 } then
-        soil.text = "Soil level: Low"
-    elseif { soilPar = 1.3 } then
-        soil.text = "Soil level: High"
-    elseif { soilPar = 1.4 } then
-        soilPar = 1.1
-    end
-end
-
-local soilBtnOpt =
-{
-    x = 165,
-    y = 800,
-    height = 120,
-    width = 230,
-    label = "Change Soil",
-    fontSize = 40,
-    shape = "rectangle",
-    onRelease = changeSoil
-}
-
-local soilBtn = widget.newButton( soilBtnOpt )
+print( sNum )
